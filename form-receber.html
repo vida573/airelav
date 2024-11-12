@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação com JavaScript</title>
+    <link rel="stylesheet" href="style2.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Dados Recebidos</h1>
+            <p>Obrigado por enviar seus dados! Aqui estão as informações que você forneceu:</p>
+
+            <ul>
+                <li><b>Nome:</b> <span id="nome"></span></li>
+                <li><b>Sexo:</b> <span id="sexo"></span></li>
+                <li><b>Cidade:</b> <span id="cidade"></span></li>
+                <li><b>Estado:</b> <span id="estado"></span></li>
+                <li><b>Objetos:</b> <span id="objetos"></span></li>
+                <li><b>Mensagem</b> <span id="mensagem"></span></li>
+            </ul>
+        </div>
+
+    <script>
+        // Função para obter os parâmetross da URL e decodificar espaços
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const regex = /([^&=]+)=([^&]*)/g;
+            let m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2].replace(/\+/g, ' '));
+            }
+            return params;
+        }
+
+        // preencher os dados na página
+        window.onload = function() {
+            const params = getQueryParams();
+            document.getElementById('nome').textContent = params['nome'] || '';
+            document.getElementById('sexo').textContent = params['sexo'] || '';
+            document.getElementById('cidade').textContent = params['cidade'] || '';
+            document.getElementById('estado').textContent = params['estado'] || '';
+            document.getElementById('objetos').textContent = [
+                params['GELADEIRA'] ? 'GELADEIRA' : '',
+                params['VideoGames'] ? 'VídeoGame' : '' ,
+                params['Celular'] ? 'Celular' : '' ,
+                params['TV'] ? 'Televisão' : '' 
+            ].filter(Boolean).join(', ');
+            document.getElementById('mensagem').textContent = params['mensagem'] || '';
+            }
+        </script>
+    <body>
+    <html>
+        
+    
